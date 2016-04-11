@@ -1,0 +1,25 @@
+{
+  "name": "nekoChat",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Eqistyre <stillalive@aliyun.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "express"
+  ],
+  "homepage": "https://github.com/Eqistyre/nekoChat",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.6"
+  }
+}

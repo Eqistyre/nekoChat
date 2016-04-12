@@ -48,17 +48,5 @@ gulp.task('scripts', () => {
       .pipe(reload({stream: true}));
 });
 
-//gulp watch and reload
-gulp.watch([
-    'app/images/*',
-]).on('change', reload);
-
-gulp.watch('app/views/*.jade', ['views']);
-gulp.watch('app/stylesheets/*.scss', ['styles']);
-gulp.watch('app/javascripts/*.js', ['scripts']);
-gulp.watch('app/fonts/**/*', ['fonts']);
-
-//extras task
-gulp.task('clean', del.bind(null, ['public/*']));
-
+gulp.task('clean', del.bind(null, ['public/**']));
 gulp.task('build', ['clean', 'views', 'styles', 'fonts', 'images', 'bowerFile']);

@@ -17,6 +17,7 @@
   "devDependencies": {
     "bower": "^1.7.9",
     "gulp": "^3.9.1",
+    "orm": "^2.1.30",
     "socket.io": "^1.4.5"
   }
 }

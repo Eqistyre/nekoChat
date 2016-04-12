@@ -16,8 +16,13 @@
   },
   "devDependencies": {
     "bower": "^1.7.9",
+    "browser-sync": "^2.12.1",
+    "del": "^2.2.0",
     "gulp": "^3.9.1",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-sass": "^2.2.0",
     "orm": "^2.1.30",
-    "socket.io": "^1.4.5"
+    "socket.io": "^1.4.5",
+    "wiredep": "^4.0.0"
   }
 }

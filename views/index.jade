@@ -1,20 +1,4 @@
-doctype html
-meta(charset = "utf-8")
-html
-  head
-    meta(name = "viewport" content = "width=device-width, initial-scale=1, maximum-scale=1")
-    title= title
-    link(rel = "stylesheet", href = "/stylesheets/main.css")
-  block content
-  body
-    .container
-      .header
-        ul.nav.nav-pills.pull-right
-          li.active
-            a(href = "#")关于我
-      
-    //js
-    script(type = "text/javascript" src = "javascript/main.js")
-    //lib
-    script(type = "text/javascript" src = "/bower_components/jquery/dist/jquery.min.js")
-    script(type = "text/javascript" src = "/bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js")
+extends layout
+block content
+  h1= title
+  p Welcome to #{title}

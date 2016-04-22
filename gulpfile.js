@@ -1,52 +1,38 @@
-var gulp = require('gulp');
-var minifyCSS = require('gulp-minify-css');
-var gulpSass = require('gulp-sass');
-var browserSync = require('browser-sync');
-var gulpLoadPlugins = require('gulp-load-plugins');
-var del = require('del');
-var wiredep = require('wiredep').stream;
+var gulp = require('gulp'),
+  nodemon = require('gulp-nodemon'),
+  plumber = require('gulp-plumber'),
+  livereload = require('gulp-livereload'),
+  sass = require('gulp-ruby-sass');
 
-const $ = gulpLoadPlugins();
-const reload = browserSync.reload;
-
-//the most important rasks
-gulp.task('styles', function() {
-    gulp.src('app/stylesheets/*.scss')
-        .pipe(gulpSass())
-        .pipe(minifyCSS())
-        .pipe(gulp.dest('public/stylesheets/'))
-        .pipe(reload({stream: true}));
+gulp.task('sass', function () {
+  return sass('./public/css/**/*.scss')
+    .pipe(gulp.dest('./public/css'))
+    .pipe(livereload());
 });
 
-gulp.task('fonts', function() {
-  gulp.src('app/fonts/**')
-      .pipe(gulp.dest('public/fonts'));
+gulp.task('watch', function() {
+  gulp.watch('./public/css/*.scss', ['sass']);
 });
 
-gulp.task('images', function() {
-  gulp.src('app/images/**')
-      .pipe(gulp.dest('public/images'));
+gulp.task('develop', function () {
+  livereload.listen();
+  nodemon({
+    script: 'bin/www',
+    ext: 'js jade coffee',
+    stdout: false
+  }).on('readable', function () {
+    this.stdout.on('data', function (chunk) {
+      if(/^Express server listening on port/.test(chunk)){
+        livereload.changed(__dirname);
+      }
+    });
+    this.stdout.pipe(process.stdout);
+    this.stderr.pipe(process.stderr);
+  });
 });
 
-gulp.task('views', function() {
-  gulp.src('app/views/**')
-      .pipe(gulp.dest('views'));
-});
-
-gulp.task('bowerFile', function() {
-  gulp.src('app/bower_components/**')
-      .pipe(gulp.dest('public/bower_components'));
-});
-
-gulp.task('scripts', () => {
-  gulp.src('app/javascripts/**/*.js')
-      .pipe($.plumber())
-      .pipe($.sourcemaps.init())
-      .pipe($.babel())
-      .pipe($.sourcemaps.write('.'))
-      .pipe(gulp.dest('public/javascripts/'))
-      .pipe(reload({stream: true}));
-});
-
-gulp.task('clean', del.bind(null, ['public/**']));
-gulp.task('build', ['clean', 'views', 'styles', 'fonts', 'images', 'bowerFile']);
+gulp.task('default', [
+  'sass',
+  'develop',
+  'watch'
+]);
